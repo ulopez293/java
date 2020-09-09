@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<framework>
+    <data-access>
+        <connection-pool usr="sa"
+                         pwd=""
+                         driver="org.hsqldb.jdbcDriver"
+                         url="jdbc:hsqldb:hsql://localhost/xdb"
+                         minsize="3"
+                         maxsize="8"
+                         steep="3"/>
+        <mapping>
+            <table name="DEPT" type="AplicacionCliente.DeptDTO">
+                <field name="deptno" att="deptno" pk="true" />
+                <field name="dname" att="dname" />
+                <field name="loc" att="loc" />
+            </table>
+            <table name="EMP" type="AplicacionCliente.EmpDTO">
+                <field name="empno" att="empno" pk="true" />
+                <field name="ename" att="ename" />
+                <field name="hiredate" att="hiredate" />
+                <field name="deptno" att="deptno" />
+            </table>
+        </mapping>
+    </data-access>
+    <!-- Mapeo de Bins para implementar un factory -->
+    <bean-access>
+        <bean name="FACADE"
+              type="AplicacionCliente.FacadeRMIImple"
+              singleton="false" />
+        <bean name="EMP"
+              type="AplicacionServer.EmpDAOHsqlDBImple"
+              singleton="true" />
+        <bean name="FACADE"
+              type="AplicacionCliente.DeptDAO"
+              singleton="true" />
+    </bean-access>
+</framework>
